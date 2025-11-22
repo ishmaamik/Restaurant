@@ -29,4 +29,19 @@ public class Menu {
     private boolean active;
 
     private String category;
+
+    public void activate(){
+        this.active= true;
+    }
+
+    public void deactivate(){
+        this.active= false;
+    }
+
+    public void changePrice(BigDecimal price){
+        if(price.compareTo(BigDecimal.ZERO)<=0){
+            throw new IllegalStateException("Price must be positive");
+        }
+        this.price= price;
+    }
 }
