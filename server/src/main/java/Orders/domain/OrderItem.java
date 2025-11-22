@@ -1,14 +1,12 @@
 package Orders.domain;
 
+import Menu.domain.Menu;
 import Orders.enums.ItemStatus;
-import Orders.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
-import Orders.domain.Order;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package Orders.domain;
+package Menu.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package Orders.enums;
+package Payment.enums;
 
 public enum PaymentStatus {
     PENDING,
