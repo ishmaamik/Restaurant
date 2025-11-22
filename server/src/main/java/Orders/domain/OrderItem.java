@@ -52,12 +52,25 @@ public class OrderItem {
 
     public void addItem(){
         this.quantity+=1;
+
         calculateTotalPrice();
+
+        if (this.order != null) {
+            order.recalculateAmounts();
+        }
     }
 
     public void removeItem(){
+        if (this.quantity <= 1) {
+            throw new IllegalStateException("Cannot reduce quantity below 1. Use Order.removeItem() instead.");
+        }
         this.quantity-=1;
+
         calculateTotalPrice();
+
+        if (this.order != null) {
+            order.recalculateAmounts();
+        }
     }
 
     public void confirm(){
@@ -68,21 +81,21 @@ public class OrderItem {
     }
 
     public void markPreparing(){
-        if(!this.itemStatus.equals(OrderStatus.CONFIRMED)){
+        if(!this.itemStatus.equals(ItemStatus.CONFIRMED)){
             throw new IllegalStateException("Cannot prepare not confirmed items");
         }
         this.itemStatus= ItemStatus.PREPARING;
     }
 
     public void markReady(){
-        if(!this.itemStatus.equals(OrderStatus.PREPARING)){
+        if(!this.itemStatus.equals(ItemStatus.PREPARING)){
             throw new IllegalStateException("Cannot mark ready not preparing items");
         }
         this.itemStatus= ItemStatus.READY;
     }
 
     public void markServed(){
-        if(!this.itemStatus.equals(OrderStatus.READY)){
+        if(!this.itemStatus.equals(ItemStatus.READY)){
             throw new IllegalStateException("Cannot serve not yet ready items");
         }
         this.itemStatus= ItemStatus.SERVED;

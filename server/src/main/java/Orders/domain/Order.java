@@ -137,6 +137,8 @@ public class Order {
         if(!this.orderStatus.equals(OrderStatus.SERVED)){
             throw new IllegalStateException("Cannot mark not yet served orders as Paid");
         }
+        this.orderStatus= OrderStatus.PAID;
+        this.paidAt= LocalDateTime.now();
     }
 
     public void cancel(){
