@@ -2,6 +2,7 @@ package Orders.domain;
 import Orders.enums.OrderStatus;
 import Orders.enums.OrderType;
 import Orders.enums.PaymentStatus;
+import Users.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,6 +52,10 @@ public class Order {
 
     @Column(nullable = false)
     private BigDecimal serviceChargeAmount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    private User orderedBy;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
