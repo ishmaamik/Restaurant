@@ -1,7 +1,7 @@
 package Orders.domain;
 import Orders.enums.OrderStatus;
 import Orders.enums.OrderType;
-import Orders.enums.PaymentStatus;
+import Payment.enums.PaymentStatus;
 import Users.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
