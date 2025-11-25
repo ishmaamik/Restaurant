@@ -27,7 +27,7 @@ public class Order {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private PaymentStatus status;
+    private PaymentStatus paymentStatus;
 
     @Enumerated(EnumType.STRING)
     private String paymentMethod;
