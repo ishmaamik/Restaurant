@@ -29,6 +29,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private String paymentMethod;
+
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
