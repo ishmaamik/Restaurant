@@ -5,10 +5,14 @@ import Users.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepo extends JpaRepository<User, UUID> {
-    List<User> findByEmail(String email);
-    List<User> findByUsername(String username);
-    List<User> findByRole(UserRole userRole);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
+    List<User> findAllUsersByRole(UserRole userRole);
+    //findAll() does FindAllUsers work
+    //findAllUsersByEmail is unnecessary as findAll does the work
+    //Optional is necessary otherwise throws error silently if not found
 }
