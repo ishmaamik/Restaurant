@@ -32,4 +32,22 @@ public class OrderItemService {
         item.removeItem();
         return orderItemRepo.save(item);
     }
+
+    public OrderItem readyItem(UUID itemId){
+        OrderItem item= getItem(itemId);
+        item.markReady();
+        return orderItemRepo.save(item);
+    }
+
+    public OrderItem serveItem(UUID itemId){
+        OrderItem item= getItem(itemId);
+        item.markServed();
+        return orderItemRepo.save(item);
+    }
+
+    public OrderItem cancelItem(UUID itemId){
+        OrderItem item= getItem(itemId);
+        item.markCancelled();
+        return orderItemRepo.save(item);
+    }
 }

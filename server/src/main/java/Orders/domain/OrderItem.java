@@ -42,7 +42,7 @@ public class OrderItem {
     private String notes;
 
     @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus= ItemStatus.PENDING;
+    private ItemStatus itemStatus= ItemStatus.PREPARING;
 
     public void calculateTotalPrice(){
         this.totalPrice= unitPrice.multiply(new BigDecimal(quantity));  //convert a copy of quantity to big decimal
@@ -71,20 +71,6 @@ public class OrderItem {
         }
     }
 
-    public void confirm(){
-        if(!this.itemStatus.equals(ItemStatus.PENDING)){
-            throw new IllegalStateException("Items must be pending to be confirmed");
-        }
-        this.itemStatus= ItemStatus.CONFIRMED;
-    }
-
-    public void markPreparing(){
-        if(!this.itemStatus.equals(ItemStatus.CONFIRMED)){
-            throw new IllegalStateException("Cannot prepare not confirmed items");
-        }
-        this.itemStatus= ItemStatus.PREPARING;
-    }
-
     public void markReady(){
         if(!this.itemStatus.equals(ItemStatus.PREPARING)){
             throw new IllegalStateException("Cannot mark ready not preparing items");
@@ -97,6 +83,13 @@ public class OrderItem {
             throw new IllegalStateException("Cannot serve not yet ready items");
         }
         this.itemStatus= ItemStatus.SERVED;
+    }
+
+    public void markCancelled(){
+        if(!this.itemStatus.equals(ItemStatus.PREPARING)){
+            throw new IllegalStateException("Cannot cancel already prepared foods!");
+        }
+        this.itemStatus= ItemStatus.CANCELLED;
     }
 
 }

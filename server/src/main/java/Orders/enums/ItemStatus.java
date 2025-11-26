@@ -1,10 +1,11 @@
 package Orders.enums;
 
 public enum ItemStatus {
-    PENDING,
-    CONFIRMED,
     PREPARING,
     READY,
     SERVED,
     CANCELLED
+
+    //NO NEED FOR PENDING AND CONFIRMED HERE AS PEOPLE
+    //USUALLY BUY THE WHOLE ORDER NOT INDIVIDUAL ITEMS
 }
