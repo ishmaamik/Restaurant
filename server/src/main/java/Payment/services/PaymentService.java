@@ -10,6 +10,9 @@ import Payment.domain.Payment;
 import Payment.enums.PaymentStatus;
 import Payment.repository.PaymentRepo;
 import Users.domain.User;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -18,12 +21,18 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service    //I could put required args constructor only if I did not have to customize my strategies mapping
-@Transactional //ensures that if it fails midway nothing saves, either full save or none, ensures consistency
+@Transactional
+@Getter//ensures that if it fails midway nothing saves, either full save or none, ensures consistency
+@Setter
 public class PaymentService {
 
     private final Map<String,IPayment> strategies;  //constructor initialized, not field i.e. no @autowired
-    private final OrderService orderService;    //@Autowired would make it field injection which is test hostile
-    private final PaymentRepo paymentRepo;
+
+    @Autowired
+    private OrderService orderService;    //@Autowired would make it field injection which is test hostile
+
+    @Autowired
+    private PaymentRepo paymentRepo;
 
     public PaymentService(List<IPayment> strategyList, OrderService orderService, PaymentRepo paymentRepo){
         this.strategies= strategyList.stream()
@@ -31,10 +40,6 @@ public class PaymentService {
                         strategy-> strategy.getClass().getSimpleName().toUpperCase(),
                         strategy-> strategy
                 ));
-
-        this.orderService= orderService;
-        this.paymentRepo= paymentRepo;
-
     }
 
     public Order updatePaymentStatus(Order order, PaymentStatus paymentStatus){
@@ -51,7 +56,7 @@ public class PaymentService {
             throw new UnsupportedOperationException("Payment not supported");
         }
 
-        PaymentResponseDTO response= payment.Pay(orderId, request);
+        PaymentResponseDTO response= payment.Pay(request);
 
 
         User user= order.getOrderedBy();

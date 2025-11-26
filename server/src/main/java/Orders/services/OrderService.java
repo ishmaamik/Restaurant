@@ -9,6 +9,7 @@ import Orders.enums.OrderStatus;
 import Orders.repository.OrderRepo;
 import Payment.enums.PaymentStatus;
 import Users.domain.User;
+import Users.enums.UserRole;
 import Users.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepo orderRepo;
-    private MenuService menuService;
-    private UserService userService;
+    private final MenuService menuService;
+    private final UserService userService;
 
     public Order createOrder(UUID userId, Integer tableNo){
         User user= userService.getUserByUserId(userId);
@@ -86,6 +87,51 @@ public class OrderService {
         order.setOrderStatus(orderStatus);
 
         return orderRepo.save(order);
+    }
+
+    public Order confirmOrder(UUID orderId){
+        //Authorization check is only for the controllers
+        //Business logic for the service
+        //Enforcing business rules for the entity itself
+        Order order= getOrder(orderId);
+        order.confirm();
+        save(order);
+        return order;
+    }
+
+    public Order prepareOrder(UUID orderId, User user){
+        Order order= getOrder(orderId);
+        order.markPreparing();
+        save(order);
+        return order;
+    }
+
+    public Order readyOrder(UUID orderId, User user){
+        Order order= getOrder(orderId);
+        order.markReady();
+        save(order);
+        return order;
+    }
+
+    public Order serveOrder(UUID orderId, User user){
+        Order order= getOrder(orderId);
+        order.markServed();
+        save(order);
+        return order;
+    }
+
+    public Order paidOrder(UUID orderId, User user){
+        Order order= getOrder(orderId);
+        order.markPaid();
+        save(order);
+        return order;
+    }
+
+    public Order cancelOrder(UUID orderId, User user){
+        Order order= getOrder(orderId);
+        order.cancel();
+        save(order);
+        return order;
     }
 
     public Order save(Order order){

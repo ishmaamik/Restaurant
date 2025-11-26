@@ -5,6 +5,7 @@ import Payment.enums.PaymentStatus;
 import Users.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,14 +30,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @Enumerated(EnumType.STRING)
     private String paymentMethod;
 
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(nullable = false)
-    private OrderType orderType;
+    @Builder.Default
+    private OrderType orderType= OrderType.DINE_IN;
 
     @Column(nullable = false)
     private Integer tableNo;

@@ -2,6 +2,7 @@ package Payment.domain;
 
 import Payment.DTOs.PaymentRequestDTO;
 import Payment.DTOs.PaymentResponseDTO;
+import Payment.enums.PaymentStatus;
 
 import java.util.UUID;
 
@@ -12,9 +13,9 @@ public class NagadPaymentStrategy implements IPayment{
         UUID transId= UUID.randomUUID();
 
         if(paymentRequestDTO.getPhoneNumber()==null){
-            return new PaymentResponseDTO(transId, "Nagad Requires Phone Number", false);
+            return new PaymentResponseDTO(transId, "Nagad Requires Phone Number", false, PaymentStatus.FAILED);
         }
 
-        return new PaymentResponseDTO(transId, "Transaction successful", true);
+        return new PaymentResponseDTO(transId, "Transaction successful", true, PaymentStatus.SUCCESS);
     }
 }
