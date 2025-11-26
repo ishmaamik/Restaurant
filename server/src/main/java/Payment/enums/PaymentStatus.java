@@ -3,6 +3,6 @@ package Payment.enums;
 public enum PaymentStatus {
     PENDING,
     FAILED,
-    PAID,
+    SUCCESS,
     REFUNDED
 }

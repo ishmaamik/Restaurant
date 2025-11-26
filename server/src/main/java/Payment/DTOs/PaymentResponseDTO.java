@@ -1,5 +1,6 @@
 package Payment.DTOs;
 
+import Payment.enums.PaymentStatus;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,4 +13,5 @@ public class PaymentResponseDTO {
     private UUID transId;
     private String message;
     private boolean success;
+    private PaymentStatus paymentStatus;
 }
