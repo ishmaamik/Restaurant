@@ -33,6 +33,12 @@ public class OrderItemService {
         return orderItemRepo.save(item);
     }
 
+    public OrderItem prepareItem(UUID itemId){
+        OrderItem item= getItem(itemId);
+        item.markPrepare();
+        return orderItemRepo.save(item);
+    }
+
     public OrderItem readyItem(UUID itemId){
         OrderItem item= getItem(itemId);
         item.markReady();

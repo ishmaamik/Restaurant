@@ -1,6 +1,7 @@
 package Orders.enums;
 
 public enum ItemStatus {
+    IN_QUEUE,
     PREPARING,
     READY,
     SERVED,

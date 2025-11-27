@@ -58,7 +58,7 @@ public class OrderService {
                 .quantity(1)
                 .unitPrice(menu.getPrice())
                 .totalPrice(menu.getPrice())
-                .itemStatus(ItemStatus.PENDING)
+                .itemStatus(ItemStatus.IN_QUEUE)
                         .build();
 
 
