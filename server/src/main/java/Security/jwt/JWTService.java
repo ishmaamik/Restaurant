@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -69,6 +66,11 @@ public class JWTService {
     public <T> T extractClaim(JwtParser parser,String token, Function<Claims,T> claimsResolver){
         Claims claims= parser.parseSignedClaims(token).getPayload();
         return claimsResolver.apply(claims);
+    }
+
+    public Map<String, Object> extractAllClaims(String token){
+        Claims claims= accessParser.parseSignedClaims(token).getPayload();
+        return new HashMap<> (claims);
     }
 
     public String extractUsernameFromAccessToken(String accessToken){
