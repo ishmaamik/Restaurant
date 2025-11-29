@@ -1,4 +1,4 @@
-package Security.services;
+package Security.jwt;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.ParserBuilder;
