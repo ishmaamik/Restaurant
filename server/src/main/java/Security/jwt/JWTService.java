@@ -1,13 +1,11 @@
 package Security.jwt;
 
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.ParserBuilder;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.*;
