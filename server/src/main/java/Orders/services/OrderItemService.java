@@ -35,7 +35,7 @@ public class OrderItemService {
 
     public OrderItem prepareItem(UUID itemId){
         OrderItem item= getItem(itemId);
-        item.markPrepare();
+        item.startPreparing();
         return orderItemRepo.save(item);
     }
 

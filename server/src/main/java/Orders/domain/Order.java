@@ -158,9 +158,6 @@ public class Order {
             throw new IllegalStateException("Cannot mark already cancelled orders as Cancelled");
         }
 
-        if(this.orderStatus.equals(OrderStatus.CONFIRMED)){
-            throw new IllegalStateException("Cannot CANCEL CONFIRMED Orders");
-        }
 
         this.orderStatus= OrderStatus.CANCELLED;
         this.cancelledAt= LocalDateTime.now();

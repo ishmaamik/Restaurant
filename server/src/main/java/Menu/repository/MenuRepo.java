@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface MenuRepo extends JpaRepository<Menu, UUID> {
     List<Menu> findByCategory(String category);
 
-    boolean ExistsByName(String name);
+    boolean existsByName(String name);
 }

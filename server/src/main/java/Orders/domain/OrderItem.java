@@ -71,7 +71,7 @@ public class OrderItem {
         }
     }
 
-    public void markPrepare(){
+    public void startPreparing(){
         if(!this.itemStatus.equals(ItemStatus.IN_QUEUE)){
             throw new IllegalStateException("Cannot mark ready not preparing items");
         }
