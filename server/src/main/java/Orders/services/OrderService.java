@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -47,6 +48,10 @@ public class OrderService {
                 .orElseThrow(()->new EntityNotFoundException("Order not found"));
     }
 
+    public List<Order> getOrderByCustomer(UUID userId){
+        return orderRepo.getOrdersByUser(userId)
+                .orElseThrow(()-> new EntityNotFoundException("No orders from this customer"));
+    }
 
     public Order addItem(UUID orderId, UUID menuId){
         Order order= getOrder(orderId);

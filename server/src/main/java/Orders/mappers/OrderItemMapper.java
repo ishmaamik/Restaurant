@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface OrderItemMapper {
 
-    OrderItemDTO mapItemDTOToDTO(OrderItem orderItem);
+    OrderItemDTO toOrderItemDTO(OrderItem orderItem);
 }
