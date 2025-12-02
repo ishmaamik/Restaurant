@@ -5,12 +5,12 @@ import Menu.domain.Menu;
 import Menu.mappers.MenuMapper;
 import Menu.services.MenuService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -29,6 +29,39 @@ public class MenuController {
     @GetMapping("/{id}")
     public ResponseEntity<MenuDTO> getMenu(@PathVariable("id") UUID id){
         Menu menu= menuService.getMenu(id);
-        return ResponseEntity.status(201).body(menuMapper.menuMapper(menu));
+        return ResponseEntity.status(201).body(menuMapper.toMenuDTO(menu));
     }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<MenuDTO> create(@RequestBody MenuDTO menuDTO){
+        Menu created= menuService.createMenu(menuMapper.toMenu(menuDTO));
+        return ResponseEntity.ok(menuMapper.toMenuDTO(created));
+    }
+
+    @PostMapping("/{id}/price")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<MenuDTO> updatePrice(@PathVariable UUID id, @RequestBody Map<String, Object> body){
+        Object object= body.get("price");
+        BigDecimal price= new BigDecimal(object.toString());
+        Menu menu= menuService.updatePrice(id, price);
+        return ResponseEntity.ok(menuMapper.toMenuDTO(menu));
+        //convert to big decimal to ensure type safety otherwise
+        //throws exception
+    }
+
+    @PostMapping("/{id}/activate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<MenuDTO> activate(@PathVariable UUID id){
+        Menu menu= menuService.activateMenu(id);
+        return ResponseEntity.ok(menuMapper.toMenuDTO(menu));
+    }
+
+    @PostMapping("/{id}/deactivate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<MenuDTO> deactivate(@PathVariable UUID id){
+        Menu menu= menuService.deactivateMenu(id);
+        return ResponseEntity.ok(menuMapper.toMenuDTO(menu));
+    }
+
 }

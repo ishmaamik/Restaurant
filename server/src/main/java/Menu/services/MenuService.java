@@ -34,30 +34,19 @@ public class MenuService {
                 .orElseThrow(()-> new EntityNotFoundException("Menu does not exist"));
     }
 
-    public Menu updatePrice(UUID id, BigDecimal price, User user){
-        if(!user.getRoles().contains(UserRole.ADMIN)){
-            throw new AccessDeniedException("You're not an Admin");
-        }
+    public Menu updatePrice(UUID id, BigDecimal price){
         Menu menu= getMenu(id);
         menu.changePrice(price);
         return menuRepo.save(menu);
     }
 
-    public Menu activateMenu(UUID id, User user){
-        if(!user.getRoles().contains(UserRole.ADMIN)){
-            throw new AccessDeniedException("You're not an Admin");
-        }
-
+    public Menu activateMenu(UUID id){
         Menu menu= getMenu(id);
         menu.activate();
         return menuRepo.save(menu);
     }
 
-    public Menu deactivateMenu(UUID id, User user){
-        if(!user.getRoles().contains(UserRole.ADMIN)){
-            throw new AccessDeniedException("You're not an Admin!");
-        }
-
+    public Menu deactivateMenu(UUID id){
         Menu menu= getMenu(id);
         menu.deactivate();
         return menuRepo.save(menu);
