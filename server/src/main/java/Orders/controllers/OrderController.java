@@ -1,11 +1,9 @@
 package Orders.controllers;
 
-import Menu.DTOs.MenuDTO;
 import Orders.DTOs.OrderCashierDTO;
 import Orders.DTOs.OrderCustomerDTO;
 import Orders.DTOs.OrderItemDTO;
 import Orders.domain.Order;
-import Orders.domain.OrderItem;
 import Orders.mappers.OrderMapper;
 import Orders.services.OrderItemService;
 import Orders.services.OrderService;
@@ -49,7 +47,13 @@ public class OrderController {
     //DTOs always in request body and easier to extend rather than path variables
     @PostMapping("/{orderId}/add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<OrderCustomerDTO> addItem(@RequestBody MenuDTO menuDTO, @PathVariable UUID orderId){
-        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.addItem(orderId, menuDTO.getMenuId()));
+    public ResponseEntity<OrderCustomerDTO> addItem(@RequestBody OrderItemDTO orderItemDTO, @PathVariable UUID orderId){
+        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.addItem(orderId, orderItemDTO.getMenuId())));
+    }
+
+    @PostMapping("/{orderId}/remove")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<OrderCustomerDTO> removeItem(@PathVariable UUID orderId, @RequestBody OrderItemDTO orderItemDTO){
+        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.removeItem(orderId, orderItemDTO.getMenuId())));
     }
 }
