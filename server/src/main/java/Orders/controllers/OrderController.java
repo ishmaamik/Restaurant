@@ -1,16 +1,18 @@
 package Orders.controllers;
 
+import Menu.DTOs.MenuDTO;
 import Orders.DTOs.OrderCashierDTO;
 import Orders.DTOs.OrderCustomerDTO;
+import Orders.DTOs.OrderItemDTO;
 import Orders.domain.Order;
+import Orders.domain.OrderItem;
 import Orders.mappers.OrderMapper;
+import Orders.services.OrderItemService;
 import Orders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +25,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderMapper orderMapper;
-
+    @Autowired
+    private OrderItemService orderItemService;
 
     @GetMapping("/{userId}/all")
     public ResponseEntity<List<OrderCustomerDTO>> getCustomerOrders(@PathVariable UUID userId){
@@ -41,5 +44,12 @@ public class OrderController {
     public ResponseEntity<OrderCustomerDTO> getCustomerReceipt(@PathVariable UUID orderId){
         Order order= orderService.getOrder(orderId);
         return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(order));
+    }
+
+    //DTOs always in request body and easier to extend rather than path variables
+    @PostMapping("/{orderId}/add")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<OrderCustomerDTO> addItem(@RequestBody MenuDTO menuDTO, @PathVariable UUID orderId){
+        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.addItem(orderId, menuDTO.getMenuId()));
     }
 }
