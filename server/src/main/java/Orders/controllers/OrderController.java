@@ -60,13 +60,13 @@ public class OrderController {
 
     @PostMapping("/{orderId}/confirm")
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
-    public ResponseEntity<OrderCustomerDTO> confirm(UUID orderId){
+    public ResponseEntity<OrderCustomerDTO> confirm(@PathVariable UUID orderId){
        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.confirmOrder(orderId)));
     }
 
     @PostMapping("/{orderId}/change-status")
     @PreAuthorize("hasAnyRole('ADMIN', 'WAITER', 'COOK', 'CASHIER')")
-    public ResponseEntity<OrderCustomerDTO> changeStatus(UUID orderId, OrderStatus orderStatus){
+    public ResponseEntity<OrderCustomerDTO> changeStatus(@PathVariable UUID orderId,@RequestBody OrderStatus orderStatus){
         return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.changeStatus(orderId, orderStatus)));
     }
 
