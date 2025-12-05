@@ -4,6 +4,7 @@ import Orders.DTOs.OrderCashierDTO;
 import Orders.DTOs.OrderCustomerDTO;
 import Orders.DTOs.OrderItemDTO;
 import Orders.domain.Order;
+import Orders.enums.OrderStatus;
 import Orders.mappers.OrderMapper;
 import Orders.services.OrderItemService;
 import Orders.services.OrderService;
@@ -56,4 +57,17 @@ public class OrderController {
     public ResponseEntity<OrderCustomerDTO> removeItem(@PathVariable UUID orderId, @RequestBody OrderItemDTO orderItemDTO){
         return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.removeItem(orderId, orderItemDTO.getMenuId())));
     }
+
+    @PostMapping("/{orderId}/confirm")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
+    public ResponseEntity<OrderCustomerDTO> confirm(UUID orderId){
+       return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.confirmOrder(orderId)));
+    }
+
+    @PostMapping("/{orderId}/change-status")
+    @PreAuthorize("hasAnyRole('ADMIN', 'WAITER', 'COOK', 'CASHIER')")
+    public ResponseEntity<OrderCustomerDTO> changeStatus(UUID orderId, OrderStatus orderStatus){
+        return ResponseEntity.ok(orderMapper.toCustomerOrderDTO(orderService.changeStatus(orderId, orderStatus)));
+    }
+
 }
