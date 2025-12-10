@@ -13,7 +13,7 @@ import java.util.UUID;
 public class KitchenOrderStatusEvent {
     private UUID orderId;
     private String triggeredBy;
-    private LocalDateTime timestamp;
+    private LocalDateTime confirmedAt;
     private OrderStatus orderStatus;
     private Integer tableNo;
     private List<ItemSummary> itemsList;
