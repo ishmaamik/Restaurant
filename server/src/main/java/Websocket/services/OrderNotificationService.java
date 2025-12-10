@@ -18,4 +18,8 @@ public class OrderNotificationService {
         OrderCustomerDTO orderCustomerDTO= orderMapper.toCustomerOrderDTO(order);
         simpMessagingTemplate.convertAndSend("/topic/kitchen", orderCustomerDTO);
     }
+
+    public void notifyOrderStatusToKitchen(Order order){
+
+    }
 }
