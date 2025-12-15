@@ -11,6 +11,7 @@ import Payment.enums.PaymentStatus;
 import Users.domain.User;
 import Users.enums.UserRole;
 import Users.services.UserService;
+import Websocket.services.OrderNotificationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class OrderService {
     private final OrderRepo orderRepo;
     private final MenuService menuService;
     private final UserService userService;
+    private final OrderNotificationService notificationService;
 
     public Order createOrder(UUID userId, Integer tableNo){
         User user= userService.getUserByUserId(userId);
@@ -100,43 +102,49 @@ public class OrderService {
         //Enforcing business rules for the entity itself
         Order order= getOrder(orderId);
         order.confirm();
-        save(order);
-        return order;
+        Order saved= save(order);
+        notificationService.notifyStatusChange(saved, "SYSTEM");
+        return saved;
     }
 
     public Order prepareOrder(UUID orderId, User user){
         Order order= getOrder(orderId);
         order.markPreparing();
-        save(order);
-        return order;
+        Order saved = save(order);
+        notificationService.notifyStatusChange(saved, user.getUsername());
+        return saved;
     }
 
     public Order readyOrder(UUID orderId, User user){
         Order order= getOrder(orderId);
         order.markReady();
-        save(order);
-        return order;
+        Order saved = save(order);
+        notificationService.notifyStatusChange(saved, user.getUsername());
+        return saved;
     }
 
     public Order serveOrder(UUID orderId, User user){
         Order order= getOrder(orderId);
         order.markServed();
-        save(order);
-        return order;
+        Order saved = save(order);
+        notificationService.notifyStatusChange(saved, user.getUsername());
+        return saved;
     }
 
     public Order paidOrder(UUID orderId, User user){
         Order order= getOrder(orderId);
         order.markPaid();
-        save(order);
-        return order;
+        Order saved = save(order);
+        notificationService.notifyStatusChange(saved, user.getUsername());
+        return saved;
     }
 
     public Order cancelOrder(UUID orderId, User user){
         Order order= getOrder(orderId);
         order.cancel();
-        save(order);
-        return order;
+        Order saved = save(order);
+        notificationService.notifyStatusChange(saved, user.getUsername());
+        return saved;
     }
 
     public Order save(Order order){

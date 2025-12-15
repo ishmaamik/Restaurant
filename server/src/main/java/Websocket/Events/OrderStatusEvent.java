@@ -13,6 +13,6 @@ public class OrderStatusEvent {
     private UUID orderId;
     private Integer tableNo;
     private String triggeredBy;
-    private OrderStatus orderStatus;
+    private OrderStatus status;
     private LocalDateTime timestamp;
 }

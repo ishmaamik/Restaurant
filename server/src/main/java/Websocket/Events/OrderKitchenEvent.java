@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class KitchenOrderStatusEvent {
+public class OrderKitchenEvent {
     private UUID orderId;
     private String triggeredBy;
     private LocalDateTime confirmedAt;
