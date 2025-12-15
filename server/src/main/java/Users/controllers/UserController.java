@@ -1,9 +1,9 @@
 package Users.controllers;
 
+import Users.mapper.UserMapper;
 import Users.DTOs.RegistrationRequestDTO;
 import Users.DTOs.UserDTO;
 import Users.domain.User;
-import Users.mapper.UserMapper;
 import Users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

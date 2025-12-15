@@ -3,7 +3,6 @@ package Users.mapper;
 import Users.DTOs.UserDTO;
 import Users.domain.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

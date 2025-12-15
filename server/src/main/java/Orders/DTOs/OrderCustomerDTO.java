@@ -1,10 +1,8 @@
 package Orders.DTOs;
 
 import Orders.enums.OrderType;
-import Users.domain.User;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderCustomerDTO {

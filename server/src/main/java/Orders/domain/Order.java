@@ -5,7 +5,6 @@ import Payment.enums.PaymentStatus;
 import Users.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

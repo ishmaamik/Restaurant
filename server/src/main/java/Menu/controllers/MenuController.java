@@ -20,6 +20,11 @@ public class MenuController {
     private MenuMapper menuMapper;
     private MenuService menuService;
 
+    public MenuController(MenuMapper menuMapper, MenuService menuService) {
+        this.menuMapper = menuMapper;
+        this.menuService = menuService;
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<MenuDTO>> getAllMenus(){
         List<Menu> menuList= menuService.getAllMenus();

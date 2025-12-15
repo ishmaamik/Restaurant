@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderRepo extends JpaRepository<Order, UUID>{
-    Optional<List<Order>> getOrdersByUser(UUID userId);
+    Optional<List<Order>> findByOrderedBy_UserId(UUID userId);
 
     Optional<List<Order>> getOrdersByStatus(OrderStatus status);
 }

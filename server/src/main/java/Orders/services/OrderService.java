@@ -3,13 +3,12 @@ package Orders.services;
 import Menu.domain.Menu;
 import Menu.services.MenuService;
 import Orders.domain.Order;
-import Orders.domain.OrderItem;
 import Orders.enums.ItemStatus;
 import Orders.enums.OrderStatus;
 import Orders.repository.OrderRepo;
+import Orders.domain.OrderItem;
 import Payment.enums.PaymentStatus;
 import Users.domain.User;
-import Users.enums.UserRole;
 import Users.services.UserService;
 import Websocket.services.OrderNotificationService;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,7 +50,7 @@ public class OrderService {
     }
 
     public List<Order> getOrderByCustomer(UUID userId){
-        return orderRepo.getOrdersByUser(userId)
+        return orderRepo.findByOrderedBy_UserId(userId)
                 .orElseThrow(()-> new EntityNotFoundException("No orders from this customer"));
     }
 

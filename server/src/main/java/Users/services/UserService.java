@@ -1,12 +1,13 @@
 package Users.services;
 
 import Users.DTOs.RegistrationRequestDTO;
+import Users.domain.User;
 import Users.enums.UserRole;
 import Users.repository.UserRepo;
-import Users.domain.User;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
-    private final UserRepo userRepo;
-    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //USER RETRIEVAL METHODS
     public User getUserByUserId(UUID userId){

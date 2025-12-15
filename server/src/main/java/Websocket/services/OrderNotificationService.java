@@ -2,10 +2,9 @@ package Websocket.services;
 
 import Orders.domain.Order;
 import Orders.enums.OrderStatus;
-import Websocket.DTOs.*;
 import Websocket.Events.OrderKitchenEvent;
-import Websocket.Events.OrderReadyEvent;
 import Websocket.Events.OrderStatusEvent;
+import Websocket.Events.OrderReadyEvent;
 import Websocket.Events.ItemSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

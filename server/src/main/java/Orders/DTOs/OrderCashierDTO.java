@@ -1,6 +1,5 @@
 package Orders.DTOs;
 
-import Orders.domain.OrderItem;
 import Orders.enums.OrderType;
 
 import java.math.BigDecimal;

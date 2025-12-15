@@ -3,6 +3,7 @@ package Security.configuration;
 import Security.jwt.JWTService;
 import Security.jwt.JwtAuthenticationFilter;
 import Security.services.AppUserDetailsService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -27,20 +28,24 @@ public class SecurityConfig {
         this.jwtService= jwtService;
     }
 
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider= new DaoAuthenticationProvider(appUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg){
         return cfg.getAuthenticationManager();
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         JwtAuthenticationFilter jwtAuthenticationFilter= new JwtAuthenticationFilter(jwtService);
 

@@ -11,9 +11,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
+@Service
 public class AuthService {
 
     private JWTService jwtService;
@@ -39,7 +42,8 @@ public class AuthService {
 
         String accessToken= jwtService.generateAccessToken(user.getUsername(), claims);
         String refreshToken= jwtService.generateRefreshToken(user.getUsername());
-        long expiresIn= jwtService.getAccessExpiration();
+        Date expirationDate = jwtService.getAccessExpiration(accessToken);
+        long expiresIn = (expirationDate.getTime() - System.currentTimeMillis()) / 1000;
         return new AuthResponseDTO(accessToken, refreshToken, expiresIn, "Bearer");
     }
 
@@ -57,7 +61,8 @@ public class AuthService {
         Map <String, Object> claims= Map.of("roles", user.getAuthorities());
 
         String newAccessToken= jwtService.generateAccessToken(username, claims);
-        long expiresIn= jwtService.getAccessExpiration();
+        Date expirationDate = jwtService.getAccessExpiration(newAccessToken);
+        long expiresIn = (expirationDate.getTime() - System.currentTimeMillis()) / 1000;
         return new AuthResponseDTO(newAccessToken, refreshToken, expiresIn, "Bearer");
     }
 }

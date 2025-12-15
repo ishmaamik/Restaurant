@@ -1,13 +1,11 @@
 package Menu.services;
 
-import Menu.domain.Menu;
 import Menu.repository.MenuRepo;
-import Users.domain.User;
-import Users.enums.UserRole;
+import Menu.domain.Menu;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,7 +17,8 @@ import java.util.UUID;
 @Transactional  //Allows rollback, commit etc. transactions (database)
 public class MenuService {
 
-    private final MenuRepo menuRepo;
+    @Autowired
+    private MenuRepo menuRepo;
 
     public List<Menu> getAllMenus(){
         return menuRepo.findAll();
