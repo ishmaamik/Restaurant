@@ -1,0 +1,12 @@
+package app.Orders.enums;
+
+public enum ItemStatus {
+    IN_QUEUE,
+    PREPARING,
+    READY,
+    SERVED,
+    CANCELLED
+
+    //NO NEED FOR PENDING AND CONFIRMED HERE AS PEOPLE
+    //USUALLY BUY THE WHOLE ORDER NOT INDIVIDUAL ITEMS
+}
