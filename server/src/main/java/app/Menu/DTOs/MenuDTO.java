@@ -11,6 +11,7 @@ public class MenuDTO {
     private UUID menuId;
     private String name;
     private BigDecimal price;
+    private String imageURL;
     private boolean active;
     private String category;
 }

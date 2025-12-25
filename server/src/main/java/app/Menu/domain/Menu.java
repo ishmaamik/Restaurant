@@ -26,6 +26,9 @@ public class Menu {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(name = "image_url")
+    private String imageURL;
+
     private boolean active;
 
     private String category;

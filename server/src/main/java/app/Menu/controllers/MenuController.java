@@ -7,6 +7,7 @@ import app.Menu.services.MenuService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,7 +39,7 @@ public class MenuController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MenuDTO> create(@RequestBody MenuDTO menuDTO){
         Menu created= menuService.createMenu(menuMapper.toMenu(menuDTO));
         return ResponseEntity.ok(menuMapper.toMenuDTO(created));
@@ -67,6 +68,12 @@ public class MenuController {
     public ResponseEntity<MenuDTO> deactivate(@PathVariable UUID id){
         Menu menu= menuService.deactivateMenu(id);
         return ResponseEntity.ok(menuMapper.toMenuDTO(menu));
+    }
+
+    @PostMapping("/upload-menu-image")
+    public ResponseEntity<?> uploadImage(@RequestParam("file")MultipartFile file){
+       String imageUrl= menuService.uploadImage(file);
+        return ResponseEntity.ok(Map.of("url", imageUrl));
     }
 
 }
