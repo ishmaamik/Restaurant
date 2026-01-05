@@ -1,5 +1,6 @@
 package app.Menu.DTOs;
 
+import app.Menu.enums.CategoryType;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,5 +14,5 @@ public class MenuDTO {
     private BigDecimal price;
     private String imageURL;
     private boolean active;
-    private String category;
+    private CategoryType category;
 }

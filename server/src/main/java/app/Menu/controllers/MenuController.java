@@ -2,6 +2,7 @@ package app.Menu.controllers;
 
 import app.Menu.DTOs.MenuDTO;
 import app.Menu.domain.Menu;
+import app.Menu.enums.CategoryType;
 import app.Menu.mappers.MenuMapper;
 import app.Menu.services.MenuService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -76,4 +78,8 @@ public class MenuController {
         return ResponseEntity.ok(Map.of("url", imageUrl));
     }
 
+    @GetMapping("/get-categories")
+    public ResponseEntity<CategoryType[]> getCategories(){
+        return ResponseEntity.ok(CategoryType.values());
+    }
 }

@@ -1,9 +1,7 @@
 package app.Menu.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import app.Menu.enums.CategoryType;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -31,7 +29,8 @@ public class Menu {
 
     private boolean active;
 
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private CategoryType category;
 
     public void activate(){
         this.active= true;
